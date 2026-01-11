@@ -8,6 +8,18 @@ A **production-ready, full-stack flight booking application** built with React, 
 ![MongoDB](https://img.shields.io/badge/MongoDB-7.0-green)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-blue)
 
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **🖥️ Frontend** | [https://x-techon-flights.vercel.app](https://x-techon-flights.vercel.app) |
+| **⚙️ Backend API** | [https://xtechon-flights.onrender.com](https://xtechon-flights.onrender.com) |
+
+> ⚠️ **Note:** Render free tier may take ~30 seconds to wake up on first request after inactivity.
+
+---
+
+
 ## 🎯 Assignment Requirements Met
 
 | Requirement | Status | Implementation |
