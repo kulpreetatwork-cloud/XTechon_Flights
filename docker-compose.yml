@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: flight_booking_db
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - flight_booking_network
+
+  # Backend API
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    container_name: flight_booking_server
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/flight_booking
+      - JWT_SECRET=xtechon_flight_booking_docker_secret
+      - NODE_ENV=development
+      - CLIENT_URL=http://localhost:5173
+    depends_on:
+      - mongodb
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - flight_booking_network
+
+  # Frontend
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    container_name: flight_booking_client
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    networks:
+      - flight_booking_network
+    depends_on:
+      - server
+
+volumes:
+  mongodb_data:
+
+networks:
+  flight_booking_network:
+    driver: bridge
